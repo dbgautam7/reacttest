@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useDispatch, useSelector } from 'react-redux';
 
  const initialState = {
  products:[],
@@ -17,20 +16,6 @@ const productSlice = createSlice({
         state.products = actions.payload
       }
     }
-//   extraReducers: {
-//     [fetchProducts.fulfilled]: (state, action) => {
-//       state.isLoading = false;
-//       state.items = action.payload;
-//     },
-//     [fetchProducts.pending]: (state) => {
-//       state.isLoading = true;
-//       state.error = "";
-//     },
-//     [fetchProducts.rejected]: (state, action) => {
-//       state.isLoading = false;
-//       state.error = action.error.message;
-//     },
-//   },
 });
 
 
