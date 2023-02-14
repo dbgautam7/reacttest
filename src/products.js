@@ -1,32 +1,47 @@
-// import React, { useEffect } from 'react'
-// import { useDispatch, useSelector } from 'react-redux';
-// import { setProduct } from './redux/slice/productSlice';
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { setProduct } from './redux/slice/productSlice';
 
 
-// const Products =() => {
-//   const dispatch = useDispatch();
-//  const fetchProducts=async()=>{
-//   const res=await fetch('https://dummyjson.com/products')
-// const data=await res.json()
-// console.log(data)
-// dispatch(setProduct(data))
-//  }
+const Products =() => {
+  const product=useSelector(state=>state.product)
+  const {id}=useSelector(state=>state.product.products.products[0])
+console.log("sfs",product.products.products[0].id)
+console.log("hi",id)
+
+  const dispatch = useDispatch();
+ const fetchProducts=async(id)=>{
+  const res=await fetch('https://dummyjson.com/products')
+const data=await res.json()
+console.log(data)
+dispatch(setProduct(data))
+ }
+
+const triggerDelete=(id)=>{
+  fetch(`https://dummyjson.com/products/${id}`, {
+  method: 'DELETE',
+})
+.then(res => res.json())
+.then(data => {
+  console.log(data);
+});
+}
+
+useEffect(() => {
+  fetchProducts()
+}, []);
 
 
-// useEffect(() => {
-//   fetchProducts()
-// }, []);
-// const product=useSelector(state=>state.product)
-// console.log(product)
+  return (
+    <div>
+        Products Title
+        {product.products.products && product.products.products.map((item,id)=>{
+          return <li key={item.id}>{item.title}</li>
+        })}
 
-//   return (
-//     <div>
-//         Products Title
-//         {product.products.products && product.products.products.map((item,id)=>{
-//           return <li key={item.id}>{item.title}</li>
-//         })}
-//     </div>
-//   )
-// }
+        <button onClick={()=>triggerDelete()}>Delete</button>
+    </div>
+  )
+}
 
-// export default Products
+export default Products
